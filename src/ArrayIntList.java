@@ -199,6 +199,24 @@ public class ArrayIntList implements IntList {
         size = 0;
     }
 
+
+    /**
+     * Doubles the storage capacity (length) of the ArrayIntList
+     */
+    private void resize() {
+        // create a new buffer, with double the capacity of the existing buffer
+        int[] newBuffer = new int[buffer.length * 2];
+
+        // run through previous buffer and copy over all values
+        for(int i = 0; i < buffer.length; i++) {
+            newBuffer[i] = buffer[i];
+        }
+
+        // replace buffer with newBuffer, containing all the same values,
+        // and at double the length
+        buffer = newBuffer;
+    }
+
     /**
      * Returns an iterator over elements of type {@code T}.
      *
