@@ -104,7 +104,30 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int remove(int index) {
-        return 0;
+        // if given index is out of range, throw IndexOutOfBoundsException
+        if(index < 0) {
+            throw new IndexOutOfBoundsException("Index out of bounds: must be greater than 0");
+        }
+
+        else if(index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds: must be less than size");
+        }
+
+        // get the value at given index of buffer
+        int requestedValue = buffer[index];
+
+        // run through array, starting at given index, going up to size,
+        // accounting for removal of requested value
+        for(int i = index; i <= size - 1; i++) {
+            // place the value at next index in current index
+            buffer[i] = buffer[i + 1];
+        }
+
+        // decrement size as value has been removed
+        size--;
+
+        // return the requested value
+        return requestedValue;
     }
 
     /**
@@ -150,7 +173,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size <= 0;
     }
 
     /**
@@ -160,7 +183,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -169,7 +192,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void clear() {
-
+        // set the size to
     }
 
     /**
