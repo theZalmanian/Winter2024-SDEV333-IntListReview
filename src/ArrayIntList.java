@@ -192,7 +192,11 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void clear() {
-        // set the size to
+        // create empty array with the given length
+        buffer = new int[buffer.length];
+
+        // set the size to 0, it is now empty
+        size = 0;
     }
 
     /**
