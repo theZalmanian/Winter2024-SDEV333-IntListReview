@@ -31,6 +31,9 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
+        // if size is equal to length, increase buffer length
+        resizeWhenNeeded();
+
         // run through array backwards
         for(int i = size; i >= 0; i--) {
             // get value at previous index and place in current index
@@ -51,7 +54,8 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addBack(int value) {
-        // TODO: If size is equal to length, increase buffer length
+        // if size is equal to length, increase buffer length
+        resizeWhenNeeded();
 
         // add the given value at the last unused index of buffer
         buffer[size] = value;
@@ -71,6 +75,8 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void add(int index, int value) {
+        // if size is equal to length, increase buffer length
+        resizeWhenNeeded();
 
     }
 
@@ -201,11 +207,11 @@ public class ArrayIntList implements IntList {
 
 
     /**
-     * Doubles the storage capacity (length) of the ArrayIntList
+     * Increases the length of the ArrayIntLists buffer by the given value
      */
-    private void resize() {
+    private void resize(int newSize) {
         // create a new buffer, with double the capacity of the existing buffer
-        int[] newBuffer = new int[buffer.length * 2];
+        int[] newBuffer = new int[newSize];
 
         // run through previous buffer and copy over all values
         for(int i = 0; i < buffer.length; i++) {
@@ -215,6 +221,17 @@ public class ArrayIntList implements IntList {
         // replace buffer with newBuffer, containing all the same values,
         // and at double the length
         buffer = newBuffer;
+    }
+
+    /**
+     * If the array has no more remaining space, double its max capacity
+     */
+    private void resizeWhenNeeded() {
+        // if there is no more space left
+        if(size == buffer.length) {
+            // double the maximum capacity of the array
+            resize(buffer.length * 2);
+        }
     }
 
     /**
