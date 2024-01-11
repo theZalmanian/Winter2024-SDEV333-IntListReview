@@ -43,7 +43,25 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
+        // construct a new node to hold given value
+        Node newNode = new Node();
 
+        // if the LinkedIntList is empty
+        if(head == null) {
+            // set head to new node
+            head = newNode;
+        }
+
+        else {
+            // point the newly created note at head
+            newNode.next = head;
+
+            // override head with newly created node (making it the first element in LinkedIntList)
+            head = newNode;
+        }
+
+        // a new element has been added, increment size
+        size++;
     }
 
     /**
