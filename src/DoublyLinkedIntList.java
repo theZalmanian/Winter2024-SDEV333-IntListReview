@@ -51,7 +51,7 @@ public class DoublyLinkedIntList implements IntList {
      *
      */
     public DoublyLinkedIntList() {
-         // setup both sentinel nodes
+         // setup both sentinel Nodes
         pre = new Node();
         post = new Node();
 
@@ -84,7 +84,20 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void addBack(int value) {
+        // construct a new Node to hold given value
+        Node newNode = new Node();
+        newNode.data = value;
 
+        // point new Node at both sentinels
+        newNode.next = post;
+        newNode.previous = pre;
+
+        // point both sentinels at the new Node
+        pre.next = newNode;
+        post.previous = newNode;
+
+        // account for new value being added
+        size++;
     }
 
     /**
