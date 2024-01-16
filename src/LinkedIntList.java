@@ -46,19 +46,14 @@ public class LinkedIntList implements IntList {
         // construct a new node to hold given value
         Node newNode = new Node();
 
-        // if the LinkedIntList is empty
-        if(head == null) {
-            // set head to new node
-            head = newNode;
-        }
-
-        else {
+        // if the LinkedIntList is not empty
+        if(head != null) {
             // point the newly created note at head
             newNode.next = head;
-
-            // override head with newly created node (making it the first element in LinkedIntList)
-            head = newNode;
         }
+
+        // override head with newly created node (making it the first element in LinkedIntList)
+        head = newNode;
 
         // a new element has been added, increment size
         size++;
