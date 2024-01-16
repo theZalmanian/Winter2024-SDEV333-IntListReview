@@ -88,12 +88,15 @@ public class DoublyLinkedIntList implements IntList {
         Node newNode = new Node();
         newNode.data = value;
 
-        // point new Node at both sentinels
-        newNode.next = post;
-        newNode.previous = pre;
+        // track the last Node in DoublyLinkedIntList
+        Node lastNode = post.previous;
 
-        // point both sentinels at the new Node
-        pre.next = newNode;
+        // point new Node at last sentinel and last Node
+        newNode.next = post;
+        newNode.previous = lastNode;
+
+        // point last sentinel and last Node at new Node
+        lastNode.next = newNode;
         post.previous = newNode;
 
         // account for new value being added
@@ -130,7 +133,20 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void removeBack() {
+        // if there are values within the DoublyLinkedIntList
+        if(size > 0) {
+            // track the last Node in the DoublyLinkedIntList
+            Node lastNode = post.previous;
 
+            // update the Node pointing to the last Node to point at post
+            lastNode.previous.next = post;
+
+            // update post to point at Node prior to last Node
+            post.previous = lastNode.previous;
+
+            // account for value being removed
+            size--;
+        }
     }
 
     /**
