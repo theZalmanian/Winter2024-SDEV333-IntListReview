@@ -1,6 +1,70 @@
 import java.util.Iterator;
 
+/**
+ *
+ */
 public class DoublyLinkedIntList implements IntList {
+    /**
+     *
+     */
+    private static class Node {
+        /**
+         * The number stored within the node
+         */
+        int data;
+
+        /**
+         * The node this node is pointing to
+         */
+        Node next;
+
+        /**
+         * The node pointing at this node
+         */
+        Node previous;
+
+        /**
+         * A newly created Node by default is not pointing to or being pointed at by any Nodes
+         */
+        public Node() {
+            next = null;
+            previous = null;
+        }
+    }
+
+    /**
+     *
+     */
+    private Node pre;
+
+    /**
+     *
+     */
+    private Node post;
+
+    /**
+     *
+     */
+    private int size;
+
+    /**
+     *
+     */
+    public DoublyLinkedIntList() {
+         // setup both sentinel nodes
+        pre = new Node();
+        post = new Node();
+
+        // point first sentinel to last sentinel
+        pre.next = post;
+
+        // point last sentinel to first sentinel
+        post.previous = pre;
+
+        // there are no numbers contained within this DoublyLinkedIntList
+        size = 0;
+    }
+
     /**
      * Prepends (inserts) the specified value at the front of the list (at index 0).
      * Shifts the value currently at the front of the list (if any) and any
