@@ -1,25 +1,29 @@
 import java.util.Iterator;
 
+/**
+ *
+ * @author Zalman I.
+ */
 public class ArrayIntList implements IntList {
     /**
-     * An array with a max capcity of 10 values
+     * An array used to store values placed within ArrayIntList
      */
     private int[] buffer;
 
     /**
-     * The number of values stored within the buffer
+     * The number of values stored within buffer
      */
     private int size;
 
     /**
-     * Constructs an ArrayIntList with an empty buffer with a max capacity of 10 values
+     * Constructs an ArrayIntList with an empty buffer, and a default max capacity of 10 values
      */
     public ArrayIntList() {
-        // setup used capacity of array as 0
-        size = 0;
-
         // setup buffer with default length of 10
         buffer = new int[10];
+
+        // no values are stored in buffer
+        size = 0;
     }
 
     /**
@@ -32,7 +36,7 @@ public class ArrayIntList implements IntList {
     @Override
     public void addFront(int value) {
         // if size is equal to length, increase buffer length
-        resizeWhenNeeded();
+        doubleMaxCapacity();
 
         // run through array backwards
         for(int i = size; i >= 0; i--) {
@@ -55,7 +59,7 @@ public class ArrayIntList implements IntList {
     @Override
     public void addBack(int value) {
         // if size is equal to length, increase buffer length
-        resizeWhenNeeded();
+        doubleMaxCapacity();
 
         // add the given value at the last unused index of buffer
         buffer[size] = value;
@@ -76,7 +80,7 @@ public class ArrayIntList implements IntList {
     @Override
     public void add(int index, int value) {
         // if size is equal to length, increase buffer length
-        resizeWhenNeeded();
+        doubleMaxCapacity();
 
     }
 
@@ -198,16 +202,26 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void clear() {
-        // create empty array with the given length
+        // create an empty array with the current buffer's length
         buffer = new int[buffer.length];
 
-        // set the size to 0, it is now empty
+        // set the size to 0, as there are no longer any values being tracked
         size = 0;
     }
 
+    /**
+     * If the buffer has no more remaining space, double its max capacity
+     */
+    private void doubleMaxCapacity() {
+        // if there is no more space left
+        if(size == buffer.length) {
+            // double the maximum capacity of the array
+            resize(buffer.length * 2);
+        }
+    }
 
     /**
-     * Increases the length of the ArrayIntLists buffer by the given value
+     * Increases the length of the ArrayIntList's buffer by the given value
      */
     private void resize(int newSize) {
         // create a new buffer, with double the capacity of the existing buffer
@@ -218,20 +232,8 @@ public class ArrayIntList implements IntList {
             newBuffer[i] = buffer[i];
         }
 
-        // replace buffer with newBuffer, containing all the same values,
-        // and at double the length
+        // replace buffer with newBuffer, now with double the length
         buffer = newBuffer;
-    }
-
-    /**
-     * If the array has no more remaining space, double its max capacity
-     */
-    private void resizeWhenNeeded() {
-        // if there is no more space left
-        if(size == buffer.length) {
-            // double the maximum capacity of the array
-            resize(buffer.length * 2);
-        }
     }
 
     /**
@@ -243,4 +245,52 @@ public class ArrayIntList implements IntList {
     public Iterator<Integer> iterator() {
         return null;
     }
+
+//    private class IntListIterator implements  Iterator<Iterator> {
+//        /**
+//         * The current index being tracked by the Iterator
+//         */
+//        private int index;
+//
+//        /**
+//         * Constructs an IntListIterator with the index initialized to 0
+//         */
+//        IntListIterator() {
+//            index = 0;
+//        }
+//
+//        /**
+//         * Returns {@code true} if the iteration has more elements.
+//         * (In other words, returns {@code true} if {@link #next} would
+//         * return an element rather than throwing an exception.)
+//         *
+//         * @return {@code true} if the iteration has more elements
+//         */
+//        @Override
+//        public boolean hasNext() {
+//            return false;
+//        }
+//
+//        /**
+//         * Returns the next element in the iteration.
+//         *
+//         * @return the next element in the iteration
+//         * @throws NoSuchElementException if the iteration has no more elements
+//         */
+//        @Override
+//        public Iterator next() {
+//            if(!hasNext()) {
+//                throw new NoSuchElementException();
+//            }
+//
+//            // get the value at current index of buffer
+//            int currValue = buffer[index];
+//
+//            // increment index
+//            index++;
+//
+//            // return the value
+//            return currValue;
+//        }
+//    }
 }
