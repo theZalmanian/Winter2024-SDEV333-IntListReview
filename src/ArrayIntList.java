@@ -35,13 +35,16 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
-        // if size is equal to length, increase buffer length
-        doubleMaxCapacity();
+        // if the buffer contains values
+        if(size != 0) {
+            // if the buffer is full, increase max capacity
+            doubleMaxCapacity();
 
-        // run through array backwards
-        for(int i = size; i >= 0; i--) {
-            // get value at previous index and place in current index
-            buffer[i] = buffer[i - 1];
+            // run through buffer backwards, up to first index
+            for(int i = size; i > 0; i--) {
+                // get value at previous index and place in current index
+                buffer[i] = buffer[i - 1];
+            }
         }
 
         // add the given value at now empty position 0
@@ -149,7 +152,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int get(int index) {
-        return 0;
+        return buffer[index];
     }
 
     /**
@@ -160,7 +163,20 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public boolean contains(int value) {
-        return false;
+    //    // run through buffer
+    //    for(int i = 0; i < buffer.length; i++) {
+    //        // check if value stored at current index is the specified value
+    //        if(buffer[i] == value) {
+    //            // the value exists within the buffer
+    //            return true;
+    //        }
+    //    }
+    //
+    //    // the value does not exist within buffer
+    //    return false;
+
+        // if index could not be found, returns true
+        return indexOf(value) != -1;
     }
 
     /**

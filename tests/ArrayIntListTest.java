@@ -18,7 +18,37 @@ class ArrayIntListTest {
     }
 
     @Test
-    void addFront() {
+    void addFront_bufferContainsOneValue_addedSuccessfully() {
+        // add initial value
+        testArrayIntList.addFront(5);
+
+        // add expected value to front
+        testArrayIntList.addFront(20);
+
+        // ensure expected value is at index 0
+        assertEquals(20, testArrayIntList.get(0));
+    }
+
+    @Test
+    void addFront_bufferContainsMultipleValues_addedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(10);
+        testArrayIntList.addFront(15);
+
+        // add expected value to front
+        testArrayIntList.addFront(20);
+
+        // ensure expected value is at index 0
+        assertEquals(20, testArrayIntList.get(0));
+    }
+
+    @Test
+    void addFront_bufferEmpty_addedSuccessfully() {
+        testArrayIntList.addFront(5);
+
+        // ensure expected value is at index 0
+        assertEquals(5, testArrayIntList.get(0));
     }
 
     @Test
@@ -60,7 +90,16 @@ class ArrayIntListTest {
 
     @Test
     void indexOf_valueInvalid_returnsNegativeOne() {
-        assertEquals(-1, testArrayIntList.indexOf(33));
+        // add values so the buffer is not empty
+        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(10);
+
+        assertEquals(-1, testArrayIntList.indexOf(15));
+    }
+
+    @Test
+    void indexOf_emptyBuffer_returnsNegativeOne() {
+        assertEquals(-1, testArrayIntList.indexOf(15));
     }
 
     @Test
