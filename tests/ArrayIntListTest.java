@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class ArrayIntListTest {
     /**
      * Static ArrayIntList so there is one version to test with
@@ -49,7 +51,16 @@ class ArrayIntListTest {
     }
 
     @Test
-    void indexOf() {
+    void indexOf_valueExists_returnsCorrectIndex() {
+        // add expected value to front
+        testArrayIntList.addFront(5);
+
+        assertEquals(0, testArrayIntList.indexOf(5));
+    }
+
+    @Test
+    void indexOf_valueInvalid_returnsNegativeOne() {
+        assertEquals(-1, testArrayIntList.indexOf(33));
     }
 
     @Test
