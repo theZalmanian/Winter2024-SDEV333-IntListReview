@@ -173,7 +173,17 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int indexOf(int value) {
-        return 0;
+        // run through buffer
+        for(int i = 0; i < buffer.length; i++) {
+            // check if value stored at current index is the specified value
+            if(buffer[i] == value) {
+                // return the current index, as that is where the specified value is located
+                return i;
+            }
+        }
+
+        // if the value does not exist in buffer
+        return -1;
     }
 
     /**
