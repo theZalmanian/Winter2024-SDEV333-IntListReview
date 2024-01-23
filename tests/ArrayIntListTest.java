@@ -1,7 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayIntListTest {
     /**
@@ -216,11 +217,99 @@ class ArrayIntListTest {
     }
 
     @Test
-    void removeFront() {
+    void removeFront_bufferContainsOneValue_removedSuccessfully() {
+        // add value to remove
+        testArrayIntList.addFront(TEST_VALUE);
+
+        // attempt to remove front value from buffer
+        testArrayIntList.removeFront();
+
+        // ensure buffer is now empty
+        assertEquals(0, testArrayIntList.size());
     }
 
     @Test
-    void removeBack() {
+    void removeFront_bufferContainsMultipleValues_removedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testArrayIntList.addFront(TEST_VALUE);
+
+        // attempt to remove front value from buffer
+        testArrayIntList.removeFront();
+
+        // ensure value was removed from buffer
+        assertNotEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
+        assertEquals(3, testArrayIntList.size());
+    }
+
+    @Test
+    void removeFront_bufferEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at 0
+            testArrayIntList.removeFront();
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void removeBack_bufferContainsOneValue_removedSuccessfully() {
+        // add value to remove
+        testArrayIntList.addFront(TEST_VALUE);
+
+        // attempt to remove back value from buffer
+        testArrayIntList.removeBack();
+
+        // ensure buffer is now empty
+        assertEquals(0, testArrayIntList.size());
+    }
+
+    @Test
+    void removeBack_bufferContainsMultipleValues_removedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testArrayIntList.addBack(TEST_VALUE);
+
+        // attempt to remove back value from buffer
+        testArrayIntList.removeBack();
+
+        // ensure value was removed from buffer
+        assertNotEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size()) - 1);
+        assertEquals(3, testArrayIntList.size());
+    }
+
+    @Test
+    void removeBack_bufferEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at 0
+            testArrayIntList.removeBack();
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
     }
 
     @Test
@@ -247,6 +336,9 @@ class ArrayIntListTest {
 
         // attempt to remove value from buffer
         assertEquals(TEST_VALUE, testArrayIntList.remove(testArrayIntList.size() - 1));
+
+        // ensure value was removed from buffer
+        assertEquals(3, testArrayIntList.size());
     }
 
     @Test
@@ -259,7 +351,7 @@ class ArrayIntListTest {
             testArrayIntList.remove(FIRST_INDEX);
         }
 
-        catch (IndexOutOfBoundsException e) {
+        catch (NoSuchElementException e) {
             exceptionThrown = true;
         }
 

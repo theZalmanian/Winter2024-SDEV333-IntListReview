@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -119,7 +120,21 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void removeFront() {
+        if(size == 0) {
+            throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
+        }
 
+        // run through buffer
+        for(int i = 0; i < size; i++) {
+            // place the value at next index in current index
+            buffer[i] = buffer[i + 1];
+        }
+
+        // clear final value in buffer
+        buffer[size - 1] = 0;
+
+        // account for removal of value
+        size--;
     }
 
     /**
@@ -128,7 +143,15 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void removeBack() {
+        if(size == 0) {
+            throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
+        }
 
+        // clear final value in buffer
+        buffer[size - 1] = 0;
+
+        // account for removal of value
+        size--;
     }
 
     /**
@@ -148,20 +171,20 @@ public class ArrayIntList implements IntList {
         }
 
         if(size == 0) {
-            throw new IndexOutOfBoundsException("Cannot remove values from empty ArrayIntList");
+            throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
         }
 
         // get the value at given index of buffer
         int requestedValue = buffer[index];
 
-        // run through array, starting at given index, going up to size,
-        // accounting for removal of requested value
+        // run through buffer
+        // starting at given index, going up to size, and accounting for removal of requested value
         for(int i = index; i <= size - 1; i++) {
             // place the value at next index in current index
             buffer[i] = buffer[i + 1];
         }
 
-        // decrement size as value has been removed
+        // account for removal of value
         size--;
 
         // return the requested value
