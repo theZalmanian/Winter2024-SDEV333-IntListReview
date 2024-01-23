@@ -74,7 +74,31 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void addBack(int value) {
+        // if the LinkedIntList is empty
+        if(head == null) {
+            // add current value in newly created head
+            addFront(value);
+        }
 
+        else {
+            // construct a new Node to hold given value
+            Node newNode = new Node();
+            newNode.data = value;
+
+            // setup pointer
+            Node pointer = head;
+
+            // run through LinkedIntList, up to the last Node
+            while(pointer.next != null) {
+                pointer = pointer.next;
+            }
+
+            // point the last Node at the newly created Node
+            pointer.next = newNode;
+
+            // a new element has been added, increment size
+            size++;
+        }
     }
 
     /**
