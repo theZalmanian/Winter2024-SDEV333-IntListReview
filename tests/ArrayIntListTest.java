@@ -556,11 +556,62 @@ class ArrayIntListTest {
     }
 
     @Test
-    void size() {
+    void size_bufferContainsMultipleValues_returnsSize() {
+        // add values so the buffer is not empty
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+
+        assertEquals(3, testArrayIntList.size());
     }
 
     @Test
-    void clear() {
+    void size_bufferEmpty_returnsSize() {
+        assertEquals(0, testArrayIntList.size());
+    }
+
+    @Test
+    void size_bufferFull_returnsSize() {
+        // add 10 values to buffer
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addBack(FILLER_VALUE);
+        }
+
+        assertEquals(DEFAULT_BUFFER_LENGTH, testArrayIntList.size());
+    }
+
+    @Test
+    void clear_bufferContainsMultipleValues_clearsSuccessfully() {
+        // add values so the buffer is not empty
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+
+        // clear the buffer
+        testArrayIntList.clear();
+
+        assertTrue(testArrayIntList.isEmpty());
+    }
+
+    @Test
+    void clear_bufferEmpty_clearsSuccessfully() {
+        // clear the buffer
+        testArrayIntList.clear();
+
+        assertTrue(testArrayIntList.isEmpty());
+    }
+
+    @Test
+    void clear_bufferFull_clearsSuccessfully() {
+        // add 10 values to buffer
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addBack(FILLER_VALUE);
+        }
+
+        // clear the buffer
+        testArrayIntList.clear();
+
+        assertTrue(testArrayIntList.isEmpty());
     }
 
     @Test
