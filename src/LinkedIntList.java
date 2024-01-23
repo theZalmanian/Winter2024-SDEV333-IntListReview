@@ -167,7 +167,16 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void removeFront() {
+        // if the list is empty
+        if(head == null) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
+        }
 
+        // otherwise, replace current head with the Node its pointing to
+        head = head.next;
+
+        // account for element removal
+        size--;
     }
 
     /**
@@ -176,7 +185,24 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void removeBack() {
+        // if the list is empty
+        if (head == null) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
+        }
 
+        // setup pointer
+        Node pointer = head;
+
+        // run through LinkedIntList, up to the second to last Node
+        while (pointer.next.next != null) {
+            pointer = pointer.next;
+        }
+
+        // point the Node before last Node at null, thereby overriding it
+        pointer.next = null;
+
+        // account for element removal
+        size--;
     }
 
     /**
