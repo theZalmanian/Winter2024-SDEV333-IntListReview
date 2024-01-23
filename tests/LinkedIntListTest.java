@@ -222,10 +222,6 @@ class LinkedIntListTest {
     }
 
     @Test
-    void removeBack() {
-    }
-
-    @Test
     void removeBack_listContainsNode_removedSuccessfully() {
         // add value to remove
         testLinkedIntList.addBack(TEST_VALUE);
@@ -276,6 +272,91 @@ class LinkedIntListTest {
     @Test
     void remove() {
     }
+
+    @Test
+    void remove_listContainsNode_removedSuccessfully() {
+        // add value to remove
+        testLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to remove value from list
+        testLinkedIntList.remove(FIRST_INDEX);
+
+        // ensure list is now empty
+        assertTrue(testLinkedIntList.isEmpty());
+    }
+
+    @Test
+    void remove_listContainsMultipleNodes_removedSuccessfully() {
+        // add several initial values
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testLinkedIntList.add(2, TEST_VALUE);
+
+        // attempt to remove front value from list
+        testLinkedIntList.remove(2);
+
+        // ensure value was removed from list
+        assertNotEquals(TEST_VALUE, testLinkedIntList.get(2));
+        assertEquals(3, testLinkedIntList.size());
+    }
+
+    @Test
+    void remove_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at back
+            testLinkedIntList.removeBack();
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testLinkedIntList.remove(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testLinkedIntList.remove(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
 
     @Test
     void get() {

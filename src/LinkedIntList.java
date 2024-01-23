@@ -221,6 +221,16 @@ public class LinkedIntList implements IntList {
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
 
+        // setup tracker
+        int requestedValue = 0;
+
+        // if the given index is 0, return and remove value at front of list
+        if(index == 0) {
+            requestedValue = head.data;
+            removeFront();
+            return requestedValue;
+        }
+
         // setup current index tracker
         int currIndex = 0;
 
@@ -239,7 +249,7 @@ public class LinkedIntList implements IntList {
         }
 
         // get value in Node at current index
-        int requestedValue = pointer.data;
+        requestedValue = pointer.data;
 
         // update Nodes around index to remove specified node
         previous.next = pointer.next;
