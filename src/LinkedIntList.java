@@ -77,7 +77,7 @@ public class LinkedIntList implements IntList {
     public void addBack(int value) {
         // if the LinkedIntList is empty
         if(head == null) {
-            // add current value in newly created head
+            // add current value as head
             addFront(value);
         }
 
@@ -113,11 +113,48 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void add(int index, int value) {
-        // construct a new Node to hold given value
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+
+        // if the given index is 0 or list is empty, add value at front of list
+        if(index == 0) {
+            addFront(value);
+        }
+
+        // if the given index is size, add value at back of list
+        if(index == size - 1) {
+            addBack(value);
+        }
+
+        // otherwise, construct a new Node to hold given value
         Node newNode = new Node();
         newNode.data = value;
 
+        // setup current index tracker
+        int currIndex = 0;
 
+        // setup pointers
+        Node previous = null;
+        Node pointer = head;
+
+        // run through LinkedIntList, up to specified index
+        while (pointer != null && currIndex != index) {
+            // update pointers
+            previous = pointer;
+            pointer = pointer.next;
+
+            // update tracker
+            currIndex++;
+        }
+
+        // update Nodes around index to account for newly created Node
+        previous.next = newNode;
+        newNode.next = pointer;
+
+        // a new element has been added, increment size
+        size++;
     }
 
     /**
@@ -167,7 +204,7 @@ public class LinkedIntList implements IntList {
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
 
-        // if buffer contains no values
+        // if list contains no values
         if(size == 0) {
             throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
         }
