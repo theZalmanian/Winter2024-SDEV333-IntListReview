@@ -381,4 +381,25 @@ class LinkedIntListTest {
     @Test
     void clear() {
     }
+
+    @Test
+    void clear_bufferContainsMultipleValues_clearsSuccessfully() {
+        // add values so list is not empty
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // clear the list
+        testLinkedIntList.clear();
+
+        assertTrue(testLinkedIntList.isEmpty());
+    }
+
+    @Test
+    void clear_bufferEmpty_clearsSuccessfully() {
+        // clear the list
+        testLinkedIntList.clear();
+
+        assertTrue(testLinkedIntList.isEmpty());
+    }
 }

@@ -393,12 +393,15 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void clear() {
-        // reset head node and point it at nothing
-        head.next = null;
-        head = null;
+        // if the list is not already empty
+        if(head != null) {
+            // reset head node and point it at nothing
+            head.next = null;
+            head = null;
 
-        // set the size to 0, as there are no longer any values being tracked
-        size = 0;
+            // set the size to 0, as there are no longer any values being tracked
+            size = 0;
+        }
     }
 
     /**
