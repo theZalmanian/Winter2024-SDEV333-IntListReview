@@ -270,7 +270,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public boolean isEmpty() {
-        return size <= 0;
+        return size == 0;
     }
 
     /**

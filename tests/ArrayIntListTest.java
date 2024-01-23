@@ -273,7 +273,7 @@ class ArrayIntListTest {
         testArrayIntList.removeBack();
 
         // ensure buffer is now empty
-        assertEquals(0, testArrayIntList.size());
+        assertTrue(testArrayIntList.isEmpty());
     }
 
     @Test
@@ -321,7 +321,7 @@ class ArrayIntListTest {
         assertEquals(TEST_VALUE, testArrayIntList.remove(FIRST_INDEX));
 
         // ensure buffer is now empty
-        assertEquals(0, testArrayIntList.size());
+        assertTrue(testArrayIntList.isEmpty());
     }
 
     @Test
@@ -528,7 +528,31 @@ class ArrayIntListTest {
     }
 
     @Test
-    void isEmpty() {
+    void isEmpty_bufferContainsMultipleValues_returnsFalse() {
+        // add values so the buffer is not empty
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+
+        // check if buffer is empty
+        assertFalse(testArrayIntList.isEmpty());
+    }
+
+    @Test
+    void isEmpty_bufferFull_returnsFalse() {
+        // add 10 values to buffer
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addBack(FILLER_VALUE);
+        }
+
+        // check if buffer is empty
+        assertFalse(testArrayIntList.isEmpty());
+    }
+
+    @Test
+    void isEmpty_bufferEmpty_returnsTrue() {
+        // check if buffer is empty
+        assertTrue(testArrayIntList.isEmpty());
     }
 
     @Test
