@@ -112,6 +112,10 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void add(int index, int value) {
+        // construct a new Node to hold given value
+        Node newNode = new Node();
+        newNode.data = value;
+
 
     }
 
@@ -168,7 +172,26 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public boolean contains(int value) {
-        return false;
+    //    // if the LinkedIntList is not empty
+    //    if(head != null) {
+    //        // setup pointer
+    //        Node pointer = head;
+    //
+    //        // run through LinkedIntList
+    //        while(pointer != null) {
+    //            // if the data in current node is specified value
+    //            if(pointer.data == value) {
+    //                // return true as the value was located
+    //                return true;
+    //            }
+    //
+    //            // move onto next Node
+    //            pointer = pointer.next;
+    //        }
+    //    }
+
+        // if value could not be found, or list was empty
+        return indexOf(value) != -1;
     }
 
     /**
@@ -181,7 +204,32 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public int indexOf(int value) {
-        return 0;
+        // if the LinkedIntList is not empty
+        if(head != null) {
+            // setup index tracker
+            int index = 0;
+
+            // setup pointer
+            Node pointer = head;
+
+            // run through LinkedIntList
+            while (pointer != null) {
+                // if the data in current node is specified value
+                if (pointer.data == value) {
+                    // return the current index
+                    return index;
+                }
+
+                // move onto next Node
+                pointer = pointer.next;
+
+                // update tracker
+                index++;
+            }
+        }
+
+        // if value could not be found, or list was empty
+        return -1;
     }
 
     /**
