@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Getting practice with implementing a LinkedList type class
@@ -161,7 +162,36 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public int get(int index) {
-        return 0;
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+
+        // if buffer contains no values
+        if(size == 0) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
+        }
+
+        // setup current index tracker
+        int currIndex = 0;
+
+        // setup pointer
+        Node pointer = head;
+
+        // run through LinkedIntList, up to given index
+        while (pointer != null) {
+            // if we have reached the specified index
+            if (currIndex == index) {
+                // return the value stored within current node
+                return pointer.data;
+            }
+
+            // move onto next Node
+            pointer = pointer.next;
+
+            // update tracker
+            currIndex++;
+        }
     }
 
     /**
