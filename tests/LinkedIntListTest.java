@@ -76,7 +76,7 @@ class LinkedIntListTest {
 
     @Test
     void addBack_listContainsNode_addedSuccessfully() {
-        // add initial values
+        // add initial value
         testLinkedIntList.addFront(FILLER_VALUE);
 
         // add test value
@@ -101,7 +101,74 @@ class LinkedIntListTest {
     }
 
     @Test
-    void add() {
+    void add_listEmpty_addedSuccessfully() {
+        // add test value to list
+        testLinkedIntList.add(FIRST_INDEX, TEST_VALUE);
+
+        // ensure expected value is in list
+        assertEquals(TEST_VALUE, testLinkedIntList.get(FIRST_INDEX));
+    }
+
+    @Test
+    void add_listContainsNode_addedSuccessfully() {
+        // add initial value
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testLinkedIntList.add(FIRST_INDEX + 1, TEST_VALUE);
+
+        // ensure expected value is at expected index
+        assertEquals(TEST_VALUE, testLinkedIntList.get(1));
+    }
+
+    @Test
+    void add_listContainsMultipleNodes_addedSuccessfully() {
+        // add several initial values
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+
+        // add test value
+        testLinkedIntList.add(2, TEST_VALUE);
+
+        // ensure expected value is at expected index
+        assertEquals(TEST_VALUE, testLinkedIntList.get(2));
+    }
+
+    @Test
+    void add_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testLinkedIntList.add(-1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void add_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testLinkedIntList.add(1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test

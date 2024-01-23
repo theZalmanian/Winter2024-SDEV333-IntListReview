@@ -124,37 +124,40 @@ public class LinkedIntList implements IntList {
         }
 
         // if the given index is size, add value at back of list
-        if(index == size - 1) {
+        else if(index == size) {
             addBack(value);
         }
 
-        // otherwise, construct a new Node to hold given value
-        Node newNode = new Node();
-        newNode.data = value;
+        // otherwise insert it somewhere in the middle
+        else {
+            // construct a new Node to hold given value
+            Node newNode = new Node();
+            newNode.data = value;
 
-        // setup current index tracker
-        int currIndex = 0;
+            // setup current index tracker
+            int currIndex = 0;
 
-        // setup pointers
-        Node previous = null;
-        Node pointer = head;
+            // setup pointers
+            Node previous = null;
+            Node pointer = head;
 
-        // run through LinkedIntList, up to specified index
-        while (pointer != null && currIndex != index) {
-            // update pointers
-            previous = pointer;
-            pointer = pointer.next;
+            // run through LinkedIntList, up to specified index
+            while (pointer != null && currIndex != index) {
+                // update pointers
+                previous = pointer;
+                pointer = pointer.next;
 
-            // update tracker
-            currIndex++;
+                // update tracker
+                currIndex++;
+            }
+
+            // update Nodes around index to account for newly created Node
+            previous.next = newNode;
+            newNode.next = pointer;
+
+            // a new element has been added, increment size
+            size++;
         }
-
-        // update Nodes around index to account for newly created Node
-        previous.next = newNode;
-        newNode.next = pointer;
-
-        // a new element has been added, increment size
-        size++;
     }
 
     /**
