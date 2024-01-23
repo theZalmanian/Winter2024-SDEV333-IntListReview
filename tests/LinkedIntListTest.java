@@ -42,7 +42,7 @@ class LinkedIntListTest {
     @Test
     void addFront_listContainsNode_addedSuccessfully() {
         // add initial values
-        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         // add test value
         testLinkedIntList.addFront(TEST_VALUE);
@@ -54,9 +54,9 @@ class LinkedIntListTest {
     @Test
     void addFront_listContainsMultipleNodes_addedSuccessfully() {
         // add several initial values
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         // add test value
         testLinkedIntList.addFront(TEST_VALUE);
@@ -66,7 +66,38 @@ class LinkedIntListTest {
     }
 
     @Test
-    void addBack() {
+    void addBack_listEmpty_addedSuccessfully() {
+        // make test value new tail
+        testLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testLinkedIntList.get(testLinkedIntList.size() -1));
+    }
+
+    @Test
+    void addBack_listContainsNode_addedSuccessfully() {
+        // add initial values
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testLinkedIntList.get(testLinkedIntList.size() -1));
+    }
+
+    @Test
+    void addBack_listContainsMultipleNodes_addedSuccessfully() {
+        // add several initial values
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testLinkedIntList.get(testLinkedIntList.size() -1));
     }
 
     @Test
