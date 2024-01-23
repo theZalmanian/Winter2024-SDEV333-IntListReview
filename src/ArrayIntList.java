@@ -47,7 +47,7 @@ public class ArrayIntList implements IntList {
             }
         }
 
-        // add the given value at now empty position 0
+        // add the given value at index 0
         buffer[0] = value;
 
         // increase size as one more value is in buffer
@@ -61,13 +61,13 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addBack(int value) {
-        // if size is equal to length, increase buffer length
+        // if the buffer is full, increase max capacity
         doubleMaxCapacity();
 
-        // add the given value at the last unused index of buffer
+        // add given value at last unused index of buffer
         buffer[size] = value;
 
-        // increment the size as one more value is stored in buffer
+        // increase size as one more value is in buffer
         size++;
     }
 

@@ -5,22 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ArrayIntListTest {
     /**
-     * Static ArrayIntList so there is one version to test with
+     * Create ArrayIntList at start
      */
-    private static ArrayIntList testArrayIntList;
-
-    /**
-     * Set up the test ArrayIntList with basic values before tests are run
-     */
-    @BeforeAll
-    static void setupArrayIntList() {
-        testArrayIntList = new ArrayIntList();
-    }
+    private ArrayIntList testArrayIntList = new ArrayIntList();
 
     @Test
     void addFront_bufferContainsOneValue_addedSuccessfully() {
         // add initial value
-        testArrayIntList.addFront(5);
+        testArrayIntList.addBack(5);
 
         // add expected value to front
         testArrayIntList.addFront(20);
@@ -32,9 +24,9 @@ class ArrayIntListTest {
     @Test
     void addFront_bufferContainsMultipleValues_addedSuccessfully() {
         // add several initial values
-        testArrayIntList.addFront(5);
-        testArrayIntList.addFront(10);
-        testArrayIntList.addFront(15);
+        testArrayIntList.addBack(5);
+        testArrayIntList.addBack(10);
+        testArrayIntList.addBack(15);
 
         // add expected value to front
         testArrayIntList.addFront(20);
@@ -52,7 +44,67 @@ class ArrayIntListTest {
     }
 
     @Test
-    void addBack() {
+    void addFront_bufferFull_addedSuccessfully() {
+        // add 10 values to buffer
+        for(int i = 0; i < 10; i++) {
+            testArrayIntList.addBack(i * 5);
+        }
+
+        // add 11th value to front
+        testArrayIntList.addFront(55);
+
+        // ensure expected value is at index 0
+        assertEquals(55, testArrayIntList.get(0));
+
+    }
+
+    @Test
+    void addBack_bufferContainsOneValue_addedSuccessfully() {
+        // add initial value
+        testArrayIntList.addFront(5);
+
+        // add expected value to back
+        testArrayIntList.addBack(20);
+
+        // ensure expected value is at final index
+        assertEquals(20, testArrayIntList.get(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void addBack_bufferContainsMultipleValues_addedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(10);
+        testArrayIntList.addFront(15);
+
+        // add expected value to back
+        testArrayIntList.addBack(20);
+
+        // ensure expected value is at final index
+        assertEquals(20, testArrayIntList.get(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void addBack_bufferEmpty_addedSuccessfully() {
+        testArrayIntList.addBack(5);
+
+        // ensure the expected value is at final index
+        assertEquals(5, testArrayIntList.get(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void addBack_bufferFull_addedSuccessfully() {
+        // add 10 values to buffer
+        for(int i = 0; i < 10; i++) {
+            testArrayIntList.addFront(i * 5);
+        }
+
+        // add 11th value to back
+        testArrayIntList.addBack(55);
+
+        // ensure expected value is at final index
+        assertEquals(55, testArrayIntList.get(testArrayIntList.size() - 1));
+
     }
 
     @Test
