@@ -1,7 +1,7 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ArrayIntListTest {
     /**
@@ -129,11 +129,90 @@ class ArrayIntListTest {
 
         // ensure expected value is at final index
         assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
-
     }
 
     @Test
-    void add() {
+    void add_bufferContainsOneValue_addedSuccessfully() {
+        // add initial value
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add expected value to buffer
+        testArrayIntList.add(1, TEST_VALUE);
+
+        // ensure expected value is at final index
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void add_bufferContainsMultipleValues_addedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add expected value somewhere in buffer
+        testArrayIntList.add(2, TEST_VALUE);
+
+        // ensure expected value is at middle index
+        assertEquals(TEST_VALUE, testArrayIntList.get(2));
+    }
+
+    @Test
+    void add_bufferEmpty_addedSuccessfully() {
+        testArrayIntList.add(0, TEST_VALUE);
+
+        // ensure the expected value is at final index
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void add_bufferFull_addedSuccessfully() {
+        // add 10 values to buffer
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addBack(FILLER_VALUE);
+        }
+
+        // add 11th value to buffer
+        testArrayIntList.add(2, TEST_VALUE);
+
+        // ensure expected value is at final index
+        assertEquals(TEST_VALUE, testArrayIntList.get(2));
+    }
+
+    @Test
+    void add_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testArrayIntList.add(-1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void add_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testArrayIntList.add(1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
     }
 
     @Test

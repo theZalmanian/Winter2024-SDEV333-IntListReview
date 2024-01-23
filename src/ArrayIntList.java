@@ -35,23 +35,26 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
-        // if the buffer contains values
-        if(size != 0) {
-            // if the buffer is full, increase max capacity
-            doubleMaxCapacity();
+    //    // if the buffer contains values
+    //    if(size != 0) {
+    //        // if the buffer is full, increase max capacity
+    //        doubleMaxCapacity();
+    //
+    //        // run through buffer backwards, up to first index
+    //        for(int i = size; i > 0; i--) {
+    //            // get value at previous index and place in current index
+    //            buffer[i] = buffer[i - 1];
+    //        }
+    //    }
+    //
+    //    // add the given value at index 0
+    //    buffer[0] = value;
+    //
+    //    // increase size as one more value is in buffer
+    //    size++;
 
-            // run through buffer backwards, up to first index
-            for(int i = size; i > 0; i--) {
-                // get value at previous index and place in current index
-                buffer[i] = buffer[i - 1];
-            }
-        }
-
-        // add the given value at index 0
-        buffer[0] = value;
-
-        // increase size as one more value is in buffer
-        size++;
+        // utilize add method to add value at front of buffer
+        add(0, value);
     }
 
     /**
@@ -61,14 +64,17 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void addBack(int value) {
-        // if the buffer is full, increase max capacity
-        doubleMaxCapacity();
+    //    // if the buffer is full, increase max capacity
+    //    doubleMaxCapacity();
+    //
+    //    // add given value at last unused index of buffer
+    //    buffer[size] = value;
+    //
+    //    // increase size as one more value is in buffer
+    //    size++;
 
-        // add given value at last unused index of buffer
-        buffer[size] = value;
-
-        // increase size as one more value is in buffer
-        size++;
+        // utilize add method to add value at back of buffer
+        add(size, value);
     }
 
     /**
@@ -82,9 +88,28 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void add(int index, int value) {
-        // if size is equal to length, increase buffer length
-        doubleMaxCapacity();
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
 
+        // if the buffer contains values
+        if(size != 0) {
+            // if the buffer is full, increase max capacity
+            doubleMaxCapacity();
+
+            // run through buffer backwards, up to given index
+            for(int i = size; i > index; i--) {
+                // get value at previous index and place in current index
+                buffer[i] = buffer[i - 1];
+            }
+        }
+
+        // add the given value at given index
+        buffer[index] = value;
+
+        // increase size as one more value is in buffer
+        size++;
     }
 
     /**
