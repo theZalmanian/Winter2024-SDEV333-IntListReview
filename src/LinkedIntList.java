@@ -1,25 +1,32 @@
 import java.util.Iterator;
 
+/**
+ * Getting practice with implementing a LinkedList type class
+ * @author Zalman I.
+ */
 public class LinkedIntList implements IntList {
+    /**
+     * A storage container which contains a connection to another Node
+     */
     private class Node {
         /**
-         * The number stored within the node
+         * The number stored within the Node
          */
         int data;
 
         /**
-         * The node this node is pointing to
+         * The node this Node is pointing to
          */
         Node next;
     }
 
     /**
-     * The node at the start of the current LinkeIntList
+     * The first Node of the current LinkedIntList
      */
     private Node head;
 
     /**
-     * The number of nodes contained within this LinkedIntList
+     * The number of Nodes contained within this LinkedIntList
      */
     private int size;
 
@@ -30,7 +37,7 @@ public class LinkedIntList implements IntList {
         // the LinkedIntList is empty
         head = null;
 
-        // there are no numbers contained within this LinkedIntList
+        // there are no values contained within this LinkedIntList
         size = 0;
     }
 
@@ -43,12 +50,13 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
-        // construct a new node to hold given value
+        // construct a new Node to hold given value
         Node newNode = new Node();
+        newNode.data = value;
 
         // if the LinkedIntList is not empty
         if(head != null) {
-            // point the newly created note at head
+            // point the newly created Node at head
             newNode.next = head;
         }
 
@@ -159,7 +167,7 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -169,7 +177,7 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -178,7 +186,12 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public void clear() {
+        // reset head node and point it at nothing
+        head.next = null;
+        head = null;
 
+        // set the size to 0, as there are no longer any values being tracked
+        size = 0;
     }
 
     /**
