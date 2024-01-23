@@ -178,20 +178,17 @@ public class LinkedIntList implements IntList {
         // setup pointer
         Node pointer = head;
 
-        // run through LinkedIntList, up to given index
-        while (pointer != null) {
-            // if we have reached the specified index
-            if (currIndex == index) {
-                // return the value stored within current node
-                return pointer.data;
-            }
-
+        // run through LinkedIntList, up to specified index
+        while (pointer != null && currIndex != index) {
             // move onto next Node
             pointer = pointer.next;
 
             // update tracker
             currIndex++;
         }
+
+        // return data stored within Node at specified index
+        return pointer.data;
     }
 
     /**
