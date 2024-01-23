@@ -216,7 +216,39 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public int remove(int index) {
-        return 0;
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+
+        // setup current index tracker
+        int currIndex = 0;
+
+        // setup pointers
+        Node previous = null;
+        Node pointer = head;
+
+        // run through LinkedIntList, up to specified index
+        while (pointer != null && currIndex != index) {
+            // update pointers
+            previous = pointer;
+            pointer = pointer.next;
+
+            // update tracker
+            currIndex++;
+        }
+
+        // get value in Node at current index
+        int requestedValue = pointer.data;
+
+        // update Nodes around index to remove specified node
+        previous.next = pointer.next;
+
+        // account for element removal
+        size--;
+
+        // return the requested value
+        return requestedValue;
     }
 
     /**
