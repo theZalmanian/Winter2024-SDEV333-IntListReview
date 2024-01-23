@@ -224,7 +224,83 @@ class ArrayIntListTest {
     }
 
     @Test
-    void remove() {
+    void remove_bufferContainsOneValue_removedSuccessfully() {
+        // add value to remove
+        testArrayIntList.addBack(TEST_VALUE);
+
+        // attempt to remove value from buffer
+        assertEquals(TEST_VALUE, testArrayIntList.remove(FIRST_INDEX));
+
+        // ensure buffer is now empty
+        assertEquals(0, testArrayIntList.size());
+    }
+
+    @Test
+    void remove_bufferContainsMultipleValues_removedSuccessfully() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testArrayIntList.addBack(TEST_VALUE);
+
+        // attempt to remove value from buffer
+        assertEquals(TEST_VALUE, testArrayIntList.remove(testArrayIntList.size() - 1));
+    }
+
+    @Test
+    void remove_bufferEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at 0
+            testArrayIntList.remove(FIRST_INDEX);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at invalid index
+            testArrayIntList.remove(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at invalid index
+            testArrayIntList.remove(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // ensure expected value is at final index
+        assertTrue(exceptionThrown);
     }
 
     @Test

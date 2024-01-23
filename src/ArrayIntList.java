@@ -142,13 +142,13 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int remove(int index) {
-        // if given index is out of range, throw IndexOutOfBoundsException
-        if(index < 0) {
-            throw new IndexOutOfBoundsException("Index out of bounds: must be greater than 0");
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
 
-        else if(index >= size) {
-            throw new IndexOutOfBoundsException("Index out of bounds: must be less than size");
+        if(size == 0) {
+            throw new IndexOutOfBoundsException("Cannot remove values from empty ArrayIntList");
         }
 
         // get the value at given index of buffer
