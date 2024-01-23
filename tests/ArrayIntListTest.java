@@ -194,7 +194,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -212,7 +212,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -260,7 +260,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -308,7 +308,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -355,7 +355,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -373,7 +373,7 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
@@ -391,39 +391,139 @@ class ArrayIntListTest {
             exceptionThrown = true;
         }
 
-        // ensure expected value is at final index
+        // check if exception was thrown
         assertTrue(exceptionThrown);
     }
 
     @Test
-    void get() {
+    void get_bufferContainsOneValue_returnsValue() {
+        // add expected value to buffer
+        testArrayIntList.addFront(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
     }
 
     @Test
-    void contains() {
+    void get_bufferContainsMultipleValues_returnsValue() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
 
+        // add value to retrieve
+        testArrayIntList.addBack(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
     }
 
     @Test
-    void indexOf_valueExists_returnsCorrectIndex() {
+    void get_bufferEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from empty buffer
+            testArrayIntList.get(FIRST_INDEX);
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void get_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testArrayIntList.get(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void get_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testArrayIntList.get(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void contains_valueExists_returnsTrue() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // add value to check for
+        testArrayIntList.addBack(TEST_VALUE);
+
+        // check if value is in buffer
+        assertTrue(testArrayIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void contains_valueNotInBuffer_returnsFalse() {
+        // add several initial values
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+
+        // check if value is in buffer
+        assertFalse(testArrayIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void contains_bufferEmpty_returnsFalse() {
+        assertFalse(testArrayIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_valueExists_returnsIndex() {
         // add expected value to front
         testArrayIntList.addFront(TEST_VALUE);
 
+        // check if index matches
         assertEquals(FIRST_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 
     @Test
-    void indexOf_valueInvalid_returnsNegativeOne() {
+    void indexOf_valueInvalid_returnsInvalidIndexFlag() {
         // add values so the buffer is not empty
         testArrayIntList.addFront(FILLER_VALUE);
         testArrayIntList.addFront(FILLER_VALUE);
         testArrayIntList.addFront(FILLER_VALUE);
 
+        // ensure invalid index flag returns
         assertEquals(INVALID_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 
     @Test
-    void indexOf_emptyBuffer_returnsNegativeOne() {
+    void indexOf_bufferEmpty_returnsInvalidIndexFlag() {
         assertEquals(INVALID_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 

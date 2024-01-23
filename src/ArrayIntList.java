@@ -120,6 +120,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void removeFront() {
+        // if buffer contains no values
         if(size == 0) {
             throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
         }
@@ -143,6 +144,7 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public void removeBack() {
+        // if buffer contains no values
         if(size == 0) {
             throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
         }
@@ -170,6 +172,7 @@ public class ArrayIntList implements IntList {
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
 
+        // if buffer contains no values
         if(size == 0) {
             throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
         }
@@ -200,6 +203,16 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public int get(int index) {
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+
+        // if buffer contains no values
+        if(size == 0) {
+            throw new NoSuchElementException("Cannot remove values from empty ArrayIntList");
+        }
+
         return buffer[index];
     }
 
@@ -223,7 +236,7 @@ public class ArrayIntList implements IntList {
     //    // the value does not exist within buffer
     //    return false;
 
-        // if index could not be found, returns true
+        // if index could not be found, returns false
         return indexOf(value) != -1;
     }
 
