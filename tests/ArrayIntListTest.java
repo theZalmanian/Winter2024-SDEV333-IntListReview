@@ -9,101 +9,126 @@ class ArrayIntListTest {
      */
     private ArrayIntList testArrayIntList = new ArrayIntList();
 
+    /**
+     * The default max capacity of buffer, at creation
+     */
+    private final int DEFAULT_BUFFER_LENGTH = 10;
+
+    /**
+     * The first index in buffer is 0
+     */
+    private final int FIRST_INDEX = 0;
+
+    /**
+     * The value returned by methods if value not found
+     */
+    private final int INVALID_INDEX = -1;
+
+    /**
+     * The standard filler value added to buffer prior to testing method
+     */
+    private final int FILLER_VALUE = 5;
+
+    /**
+     * The standard value used to test methods
+     */
+    private final int TEST_VALUE = 20;
+
     @Test
     void addFront_bufferContainsOneValue_addedSuccessfully() {
         // add initial value
-        testArrayIntList.addBack(5);
+        testArrayIntList.addBack(FILLER_VALUE);
 
         // add expected value to front
-        testArrayIntList.addFront(20);
+        testArrayIntList.addFront(TEST_VALUE);
 
         // ensure expected value is at index 0
-        assertEquals(20, testArrayIntList.get(0));
+        assertEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
     }
 
     @Test
     void addFront_bufferContainsMultipleValues_addedSuccessfully() {
         // add several initial values
-        testArrayIntList.addBack(5);
-        testArrayIntList.addBack(10);
-        testArrayIntList.addBack(15);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
+        testArrayIntList.addBack(FILLER_VALUE);
 
         // add expected value to front
-        testArrayIntList.addFront(20);
+        testArrayIntList.addFront(TEST_VALUE);
 
         // ensure expected value is at index 0
-        assertEquals(20, testArrayIntList.get(0));
+        assertEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
     }
 
     @Test
     void addFront_bufferEmpty_addedSuccessfully() {
-        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(TEST_VALUE);
 
         // ensure expected value is at index 0
-        assertEquals(5, testArrayIntList.get(0));
+        assertEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
     }
 
     @Test
     void addFront_bufferFull_addedSuccessfully() {
         // add 10 values to buffer
-        for(int i = 0; i < 10; i++) {
-            testArrayIntList.addBack(i * 5);
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addBack(FILLER_VALUE);
         }
 
         // add 11th value to front
-        testArrayIntList.addFront(55);
+        testArrayIntList.addFront(TEST_VALUE);
 
         // ensure expected value is at index 0
-        assertEquals(55, testArrayIntList.get(0));
+        assertEquals(TEST_VALUE, testArrayIntList.get(FIRST_INDEX));
 
     }
 
     @Test
     void addBack_bufferContainsOneValue_addedSuccessfully() {
         // add initial value
-        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(FILLER_VALUE);
 
         // add expected value to back
-        testArrayIntList.addBack(20);
+        testArrayIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at final index
-        assertEquals(20, testArrayIntList.get(testArrayIntList.size() - 1));
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
     }
 
     @Test
     void addBack_bufferContainsMultipleValues_addedSuccessfully() {
         // add several initial values
-        testArrayIntList.addFront(5);
-        testArrayIntList.addFront(10);
-        testArrayIntList.addFront(15);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
 
         // add expected value to back
-        testArrayIntList.addBack(20);
+        testArrayIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at final index
-        assertEquals(20, testArrayIntList.get(testArrayIntList.size() - 1));
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
     }
 
     @Test
     void addBack_bufferEmpty_addedSuccessfully() {
-        testArrayIntList.addBack(5);
+        testArrayIntList.addBack(TEST_VALUE);
 
         // ensure the expected value is at final index
-        assertEquals(5, testArrayIntList.get(testArrayIntList.size() - 1));
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
     }
 
     @Test
     void addBack_bufferFull_addedSuccessfully() {
         // add 10 values to buffer
-        for(int i = 0; i < 10; i++) {
-            testArrayIntList.addFront(i * 5);
+        for(int i = 0; i < DEFAULT_BUFFER_LENGTH; i++) {
+            testArrayIntList.addFront(FILLER_VALUE);
         }
 
         // add 11th value to back
-        testArrayIntList.addBack(55);
+        testArrayIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at final index
-        assertEquals(55, testArrayIntList.get(testArrayIntList.size() - 1));
+        assertEquals(TEST_VALUE, testArrayIntList.get(testArrayIntList.size() - 1));
 
     }
 
@@ -135,23 +160,24 @@ class ArrayIntListTest {
     @Test
     void indexOf_valueExists_returnsCorrectIndex() {
         // add expected value to front
-        testArrayIntList.addFront(5);
+        testArrayIntList.addFront(TEST_VALUE);
 
-        assertEquals(0, testArrayIntList.indexOf(5));
+        assertEquals(FIRST_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 
     @Test
     void indexOf_valueInvalid_returnsNegativeOne() {
         // add values so the buffer is not empty
-        testArrayIntList.addFront(5);
-        testArrayIntList.addFront(10);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
+        testArrayIntList.addFront(FILLER_VALUE);
 
-        assertEquals(-1, testArrayIntList.indexOf(15));
+        assertEquals(INVALID_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 
     @Test
     void indexOf_emptyBuffer_returnsNegativeOne() {
-        assertEquals(-1, testArrayIntList.indexOf(15));
+        assertEquals(INVALID_INDEX, testArrayIntList.indexOf(TEST_VALUE));
     }
 
     @Test
