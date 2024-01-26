@@ -142,7 +142,22 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void removeFront() {
+        // if the list is empty
+        if (firstSentinel.next == lastSentinel) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
+        }
 
+        // track the first Node in the list
+        Node firstNode = firstSentinel.next;
+
+        // update first sentinel to point at Node after current first Node
+        firstSentinel.next = firstNode.next;
+
+        // update Node after current first Node to point at sentinel
+        firstNode.previous = firstSentinel;
+
+        // account for value being removed
+        size--;
     }
 
     /**
@@ -151,20 +166,22 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void removeBack() {
-        // if there are values within the DoublyLinkedIntList
-        if(size > 0) {
-            // track the last Node in the DoublyLinkedIntList
-            Node lastNode = lastSentinel.previous;
-
-            // update the Node pointing to the last Node to point at post
-            lastNode.previous.next = lastSentinel;
-
-            // update post to point at Node prior to last Node
-            lastSentinel.previous = lastNode.previous;
-
-            // account for value being removed
-            size--;
+        // if the list is empty
+        if (firstSentinel.next == lastSentinel) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
         }
+
+        // track the last Node in the list
+        Node lastNode = lastSentinel.previous;
+
+        // update the Node pointing to the last Node to point at post
+        lastNode.previous.next = lastSentinel;
+
+        // update post to point at Node prior to last Node
+        lastSentinel.previous = lastNode.previous;
+
+        // account for value being removed
+        size--;
     }
 
     /**
@@ -260,7 +277,7 @@ public class DoublyLinkedIntList implements IntList {
     @Override
     public int indexOf(int value) {
         // if the list is not empty
-        if(firstSentinel.next != null) {
+        if(firstSentinel.next != lastSentinel) {
             // setup index tracker
             int index = 0;
 
@@ -314,7 +331,7 @@ public class DoublyLinkedIntList implements IntList {
     @Override
     public void clear() {
         // if the list is not already empty
-        if(firstSentinel.next != null) {
+        if(firstSentinel.next != lastSentinel) {
             // reset first sentinel node and point it at last sentinel
             firstSentinel.next = lastSentinel;
 

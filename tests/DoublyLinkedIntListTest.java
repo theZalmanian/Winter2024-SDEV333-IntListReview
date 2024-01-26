@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoublyLinkedIntListTest {
@@ -103,11 +105,99 @@ class DoublyLinkedIntListTest {
     }
 
     @Test
-    void removeFront() {
+    void removeFront_listContainsNode_removedSuccessfully() {
+        // add value to remove
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to remove value from list
+        testDoublyLinkedIntList.removeFront();
+
+        // ensure list is now empty
+        assertTrue(testDoublyLinkedIntList.isEmpty());
     }
 
     @Test
-    void removeBack() {
+    void removeFront_listContainsMultipleNodes_removedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to remove front value from list
+        testDoublyLinkedIntList.removeFront();
+
+        // ensure value was removed from list
+        assertNotEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
+        assertEquals(3, testDoublyLinkedIntList.size());
+    }
+
+    @Test
+    void removeFront_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at front
+            testDoublyLinkedIntList.removeFront();
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void removeBack_listContainsNode_removedSuccessfully() {
+        // add value to remove
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // attempt to remove value from list
+        testDoublyLinkedIntList.removeFront();
+
+        // ensure list is now empty
+        assertTrue(testDoublyLinkedIntList.isEmpty());
+    }
+
+    @Test
+    void removeBack_listContainsMultipleNodes_removedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // attempt to remove front value from list
+        testDoublyLinkedIntList.removeBack();
+
+        // ensure value was removed from list
+        assertNotEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() - 1));
+        assertEquals(3, testDoublyLinkedIntList.size());
+    }
+
+    @Test
+    void removeBack_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at back
+            testDoublyLinkedIntList.removeBack();
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test
