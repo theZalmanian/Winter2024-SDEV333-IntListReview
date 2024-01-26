@@ -9,7 +9,7 @@ public class LinkedIntList implements IntList {
     /**
      * A storage container which contains a connection to another Node
      */
-    private class Node {
+    private static class Node {
         /**
          * The number stored within the Node
          */
@@ -411,6 +411,54 @@ public class LinkedIntList implements IntList {
      */
     @Override
     public Iterator<Integer> iterator() {
-        return null;
+        return new LinkedIntListIterator();
+    }
+
+    private class LinkedIntListIterator implements Iterator<Integer> {
+        /**
+         * The current Node being tracked by the Iterator
+         */
+        private Node current;
+
+        /**
+         * Constructs a LinkedIntListIterator with the head tracked as the first Node
+         */
+        LinkedIntListIterator() {
+            current = head;
+        }
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public Integer next() {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            // get the value in current Node
+            int value = current.data;
+
+            // move on to the next node
+            current = current.next;
+
+            // return the requested value
+            return value;
+        }
     }
 }

@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *
+ * Getting practice with implementing an ArrayList type class
  * @author Zalman I.
  */
 public class ArrayIntList implements IntList {
@@ -330,54 +330,57 @@ public class ArrayIntList implements IntList {
      */
     @Override
     public Iterator<Integer> iterator() {
-        return null;
+        return new ArrayIntListIterator();
     }
 
-//    private class IntListIterator implements  Iterator<Iterator> {
-//        /**
-//         * The current index being tracked by the Iterator
-//         */
-//        private int index;
-//
-//        /**
-//         * Constructs an IntListIterator with the index initialized to 0
-//         */
-//        IntListIterator() {
-//            index = 0;
-//        }
-//
-//        /**
-//         * Returns {@code true} if the iteration has more elements.
-//         * (In other words, returns {@code true} if {@link #next} would
-//         * return an element rather than throwing an exception.)
-//         *
-//         * @return {@code true} if the iteration has more elements
-//         */
-//        @Override
-//        public boolean hasNext() {
-//            return false;
-//        }
-//
-//        /**
-//         * Returns the next element in the iteration.
-//         *
-//         * @return the next element in the iteration
-//         * @throws NoSuchElementException if the iteration has no more elements
-//         */
-//        @Override
-//        public Iterator next() {
-//            if(!hasNext()) {
-//                throw new NoSuchElementException();
-//            }
-//
-//            // get the value at current index of buffer
-//            int currValue = buffer[index];
-//
-//            // increment index
-//            index++;
-//
-//            // return the value
-//            return currValue;
-//        }
-//    }
+    /**
+     * Implementation of an Iterator for the ArrayIntList class
+     */
+    private class ArrayIntListIterator implements Iterator<Integer> {
+        /**
+         * The current index being tracked by the Iterator
+         */
+        private int index;
+
+        /**
+         * Constructs an ArrayIntListIterator with the index initialized to 0
+         */
+        ArrayIntListIterator() {
+            index = 0;
+        }
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public Integer next() {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            // get the value at current index of buffer
+            int currValue = buffer[index];
+
+            // move on to next element
+            index++;
+
+            // return the value
+            return currValue;
+        }
+    }
 }

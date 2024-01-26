@@ -8,7 +8,7 @@ class ArrayIntListTest {
     /**
      * Create ArrayIntList at start
      */
-    private ArrayIntList testArrayIntList = new ArrayIntList();
+    private final ArrayIntList testArrayIntList = new ArrayIntList();
 
     /**
      * The default max capacity of buffer, at creation
@@ -225,7 +225,7 @@ class ArrayIntListTest {
         testArrayIntList.removeFront();
 
         // ensure buffer is now empty
-        assertEquals(0, testArrayIntList.size());
+        assertTrue(testArrayIntList.isEmpty());
     }
 
     @Test
@@ -612,9 +612,5 @@ class ArrayIntListTest {
         testArrayIntList.clear();
 
         assertTrue(testArrayIntList.isEmpty());
-    }
-
-    @Test
-    void iterator() {
     }
 }
