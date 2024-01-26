@@ -419,6 +419,9 @@ public class LinkedIntList implements IntList {
         return new LinkedIntListIterator();
     }
 
+    /**
+     * Implementation of an Iterator for the LinkedIntList class
+     */
     private class LinkedIntListIterator implements Iterator<Integer> {
         /**
          * The current Node being tracked by the Iterator
