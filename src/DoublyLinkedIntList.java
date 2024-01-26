@@ -207,7 +207,7 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -217,7 +217,7 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -226,7 +226,17 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void clear() {
+        // if the list is not already empty
+        if(first.next != null) {
+            // reset first sentinel node and point it at last sentinel
+            first.next = last;
 
+            // reset last sentinel node and point it at first sentinel
+            last.previous = first;
+
+            // set the size to 0, as there are no longer any values being tracked
+            size = 0;
+        }
     }
 
     /**

@@ -11,7 +11,7 @@ class LinkedIntListTest {
     private final LinkedIntList testLinkedIntList = new LinkedIntList();
 
     /**
-     * The first index in buffer is 0
+     * The first index in list is 0
      */
     private final int FIRST_INDEX = 0;
 
