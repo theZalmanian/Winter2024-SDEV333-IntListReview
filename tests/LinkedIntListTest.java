@@ -1,7 +1,5 @@
     import org.junit.jupiter.api.Test;
 
-    import javax.naming.InitialContext;
-
     import java.util.NoSuchElementException;
 
     import static org.junit.jupiter.api.Assertions.*;
@@ -363,27 +361,171 @@ class LinkedIntListTest {
     }
 
     @Test
-    void contains() {
+    void get_listContainsNode_returnsValue() {
+        // add expected value to list
+        testLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testLinkedIntList.get(FIRST_INDEX));
     }
 
     @Test
-    void indexOf() {
+    void get_listContainsMultipleNodes_returnsValue() {
+        // add several initial values
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to retrieve
+        testLinkedIntList.addBack(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testLinkedIntList.get(testLinkedIntList.size() - 1));
     }
 
     @Test
-    void isEmpty() {
+    void get_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from empty list
+            testLinkedIntList.get(FIRST_INDEX);
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test
-    void size() {
+    void get_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testLinkedIntList.get(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test
-    void clear() {
+    void get_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testLinkedIntList.get(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test
-    void clear_bufferContainsMultipleValues_clearsSuccessfully() {
+    void contains_valueInList_returnsTrue() {
+        // add several initial values
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to check for
+        testLinkedIntList.addBack(TEST_VALUE);
+
+        // check if value is in buffer
+        assertTrue(testLinkedIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void contains_valueNotInList_returnsFalse() {
+        // add several initial values
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+
+        // check if value is in buffer
+        assertFalse(testLinkedIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void contains_listEmpty_returnsFalse() {
+        assertFalse(testLinkedIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_valueExists_returnsIndex() {
+        // add expected value to front
+        testLinkedIntList.addFront(TEST_VALUE);
+
+        // check if index matches
+        assertEquals(FIRST_INDEX, testLinkedIntList.indexOf(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_valueInvalid_returnsInvalidIndexFlag() {
+        // add values so list is not empty
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // ensure invalid index flag returns
+        assertEquals(INVALID_INDEX, testLinkedIntList.indexOf(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_listEmpty_returnsInvalidIndexFlag() {
+        assertEquals(INVALID_INDEX, testLinkedIntList.indexOf(TEST_VALUE));
+    }
+
+    @Test
+    void isEmpty_listContainsMultipleNodes_returnsSize() {
+        // add values so the buffer is not empty
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        // check if list is empty
+        assertFalse(testLinkedIntList.isEmpty());
+    }
+
+    @Test
+    void isEmpty_listEmpty_returnsSize() {
+        // ensure list is empty
+        assertTrue(testLinkedIntList.isEmpty());
+    }
+
+    @Test
+    void size_listContainsMultipleNodes_returnsSize() {
+        // add values so the buffer is not empty
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addFront(FILLER_VALUE);
+
+        assertEquals(3, testLinkedIntList.size());
+    }
+
+    @Test
+    void size_listEmpty_returnsSize() {
+        assertEquals(0, testLinkedIntList.size());
+    }
+
+    @Test
+    void clear_listContainsMultipleNodes_clearsSuccessfully() {
         // add values so list is not empty
         testLinkedIntList.addFront(FILLER_VALUE);
         testLinkedIntList.addFront(FILLER_VALUE);
@@ -392,14 +534,16 @@ class LinkedIntListTest {
         // clear the list
         testLinkedIntList.clear();
 
+        // ensure list is empty
         assertTrue(testLinkedIntList.isEmpty());
     }
 
     @Test
-    void clear_bufferEmpty_clearsSuccessfully() {
+    void clear_listEmpty_clearsSuccessfully() {
         // clear the list
         testLinkedIntList.clear();
 
+        // ensure list is empty
         assertTrue(testLinkedIntList.isEmpty());
     }
 }
