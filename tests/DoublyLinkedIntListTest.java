@@ -57,11 +57,58 @@ class DoublyLinkedIntListTest {
     }
 
     @Test
-    void contains() {
+    void contains_valueInList_returnsTrue() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to check for
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // check if value is in list
+        assertTrue(testDoublyLinkedIntList.contains(TEST_VALUE));
     }
 
     @Test
-    void indexOf() {
+    void contains_valueNotInList_returnsFalse() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // check if value is in list
+        assertFalse(testDoublyLinkedIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void contains_listEmpty_returnsFalse() {
+        assertFalse(testDoublyLinkedIntList.contains(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_valueExists_returnsIndex() {
+        // add expected value to front
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // check if index matches
+        assertEquals(FIRST_INDEX, testDoublyLinkedIntList.indexOf(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_valueInvalid_returnsInvalidIndexFlag() {
+        // add values so list is not empty
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // ensure invalid index flag returns
+        assertEquals(INVALID_INDEX, testDoublyLinkedIntList.indexOf(TEST_VALUE));
+    }
+
+    @Test
+    void indexOf_listEmpty_returnsInvalidIndexFlag() {
+        assertEquals(INVALID_INDEX, testDoublyLinkedIntList.indexOf(TEST_VALUE));
     }
 
     @Test

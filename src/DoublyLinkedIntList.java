@@ -184,7 +184,26 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public boolean contains(int value) {
-        return false;
+    //    // if the list is not empty
+    //    if(first.next != null) {
+    //        // setup pointer
+    //        Node pointer = first;
+    //
+    //        // run through list
+    //        while(pointer != null) {
+    //            // if the data in current node is specified value
+    //            if(pointer.data == value) {
+    //                // return true as the value was located
+    //                return true;
+    //            }
+    //
+    //            // move onto next Node
+    //            pointer = pointer.next;
+    //        }
+    //    }
+
+        // if value could not be found, or list was empty
+        return indexOf(value) != -1;
     }
 
     /**
@@ -197,7 +216,32 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public int indexOf(int value) {
-        return 0;
+        // if the list is not empty
+        if(first.next != null) {
+            // setup index tracker
+            int index = 0;
+
+            // setup pointer
+            Node pointer = first;
+
+            // run through list
+            while (pointer != null) {
+                // if the data in current node is specified value
+                if (pointer.data == value) {
+                    // return the current index
+                    return index;
+                }
+
+                // move onto next Node
+                pointer = pointer.next;
+
+                // update tracker
+                index++;
+            }
+        }
+
+        // if value could not be found, or list was empty
+        return -1;
     }
 
     /**
