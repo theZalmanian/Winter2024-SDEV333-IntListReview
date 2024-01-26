@@ -74,7 +74,7 @@ class DoublyLinkedIntListTest {
         testDoublyLinkedIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at end of list
-        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() - 1));
     }
 
     @Test
@@ -88,7 +88,7 @@ class DoublyLinkedIntListTest {
         testDoublyLinkedIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at end of list
-        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() - 1));
     }
 
     @Test
@@ -97,11 +97,78 @@ class DoublyLinkedIntListTest {
         testDoublyLinkedIntList.addBack(TEST_VALUE);
 
         // ensure expected value is at end of list
-        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() - 1));
     }
 
     @Test
-    void add() {
+    void add_listContainsNode_addedSuccessfully() {
+        // add initial value
+        testDoublyLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.add(FIRST_INDEX + 1, TEST_VALUE);
+
+        // ensure expected value is at expected index
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX + 1));
+    }
+
+    @Test
+    void add_listContainsMultipleNodes_addedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.add(2, TEST_VALUE);
+
+        // ensure expected value is at expected index
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(2));
+    }
+
+    @Test
+    void add_listEmpty_addedSuccessfully() {
+        // add test value to list
+        testDoublyLinkedIntList.add(FIRST_INDEX, TEST_VALUE);
+
+        // ensure expected value is in list
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
+    }
+
+    @Test
+    void add_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testDoublyLinkedIntList.add(-1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void add_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testDoublyLinkedIntList.add(1, TEST_VALUE);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test
@@ -201,11 +268,164 @@ class DoublyLinkedIntListTest {
     }
 
     @Test
-    void remove() {
+    void remove_listContainsNode_removedSuccessfully() {
+        // add value to remove
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to remove value from list
+        testDoublyLinkedIntList.remove(FIRST_INDEX);
+
+        // ensure list is now empty
+        assertTrue(testDoublyLinkedIntList.isEmpty());
     }
 
     @Test
-    void get() {
+    void remove_listContainsMultipleNodes_removedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to remove
+        testDoublyLinkedIntList.add(2, TEST_VALUE);
+
+        // attempt to remove value from list
+        testDoublyLinkedIntList.remove(2);
+
+        // ensure value was removed from list
+        assertNotEquals(TEST_VALUE, testDoublyLinkedIntList.get(2));
+        assertEquals(3, testDoublyLinkedIntList.size());
+    }
+
+    @Test
+    void remove_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to remove value at back
+            testDoublyLinkedIntList.remove(FIRST_INDEX);
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testDoublyLinkedIntList.remove(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void remove_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to add value at invalid index
+            testDoublyLinkedIntList.remove(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void get_listContainsNode_returnsValue() {
+        // add expected value to list
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
+    }
+
+    @Test
+    void get_listContainsMultipleNodes_returnsValue() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add value to retrieve
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // attempt to retrieve expected value
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() - 1));
+    }
+
+    @Test
+    void get_listEmpty_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from empty list
+            testDoublyLinkedIntList.get(FIRST_INDEX);
+        }
+
+        catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void get_invalidIndexNegative_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testDoublyLinkedIntList.get(-1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
+    }
+
+    @Test
+    void get_invalidIndexMoreThanSize_throwsException() {
+        // setup flag
+        boolean exceptionThrown = false;
+
+        try {
+            // attempt to get value from invalid index
+            testDoublyLinkedIntList.get(1);
+        }
+
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        // check if exception was thrown
+        assertTrue(exceptionThrown);
     }
 
     @Test

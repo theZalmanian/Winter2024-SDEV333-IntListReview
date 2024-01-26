@@ -221,6 +221,11 @@ public class LinkedIntList implements IntList {
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
 
+        // if the list is empty
+        if (head == null) {
+            throw new NoSuchElementException("Cannot remove values from empty LinkedIntList");
+        }
+
         // setup tracker
         int requestedValue = 0;
 

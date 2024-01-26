@@ -196,7 +196,7 @@ class LinkedIntListTest {
         // attempt to remove front value from list
         testLinkedIntList.removeFront();
 
-        // ensure value was removed from buffer
+        // ensure value was removed from list
         assertNotEquals(TEST_VALUE, testLinkedIntList.get(FIRST_INDEX));
         assertEquals(3, testLinkedIntList.size());
     }
@@ -268,10 +268,6 @@ class LinkedIntListTest {
     }
 
     @Test
-    void remove() {
-    }
-
-    @Test
     void remove_listContainsNode_removedSuccessfully() {
         // add value to remove
         testLinkedIntList.addFront(TEST_VALUE);
@@ -308,7 +304,7 @@ class LinkedIntListTest {
 
         try {
             // attempt to remove value at back
-            testLinkedIntList.removeBack();
+            testLinkedIntList.remove(FIRST_INDEX);
         }
 
         catch (NoSuchElementException e) {
@@ -353,11 +349,6 @@ class LinkedIntListTest {
 
         // check if exception was thrown
         assertTrue(exceptionThrown);
-    }
-
-
-    @Test
-    void get() {
     }
 
     @Test
@@ -447,7 +438,7 @@ class LinkedIntListTest {
         // add value to check for
         testLinkedIntList.addBack(TEST_VALUE);
 
-        // check if value is in buffer
+        // check if value is in list
         assertTrue(testLinkedIntList.contains(TEST_VALUE));
     }
 
@@ -458,7 +449,7 @@ class LinkedIntListTest {
         testLinkedIntList.addBack(FILLER_VALUE);
         testLinkedIntList.addBack(FILLER_VALUE);
 
-        // check if value is in buffer
+        // check if value is in list
         assertFalse(testLinkedIntList.contains(TEST_VALUE));
     }
 
@@ -479,9 +470,9 @@ class LinkedIntListTest {
     @Test
     void indexOf_valueInvalid_returnsInvalidIndexFlag() {
         // add values so list is not empty
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         // ensure invalid index flag returns
         assertEquals(INVALID_INDEX, testLinkedIntList.indexOf(TEST_VALUE));
@@ -494,10 +485,10 @@ class LinkedIntListTest {
 
     @Test
     void isEmpty_listContainsMultipleNodes_returnsSize() {
-        // add values so the buffer is not empty
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
+        // add values so the list is not empty
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         // check if list is empty
         assertFalse(testLinkedIntList.isEmpty());
@@ -511,10 +502,10 @@ class LinkedIntListTest {
 
     @Test
     void size_listContainsMultipleNodes_returnsSize() {
-        // add values so the buffer is not empty
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
+        // add values so the list is not empty
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         assertEquals(3, testLinkedIntList.size());
     }
@@ -527,9 +518,9 @@ class LinkedIntListTest {
     @Test
     void clear_listContainsMultipleNodes_clearsSuccessfully() {
         // add values so list is not empty
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
-        testLinkedIntList.addFront(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
+        testLinkedIntList.addBack(FILLER_VALUE);
 
         // clear the list
         testLinkedIntList.clear();
