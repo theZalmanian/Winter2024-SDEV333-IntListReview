@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Getting practice with implementing a LinkedList type class that can be traversed both ways
@@ -189,7 +190,33 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public int get(int index) {
-        return 0;
+        // if index out of range
+        if(index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+
+        // if list contains no values
+        if(size == 0) {
+            throw new NoSuchElementException("Cannot remove values from empty DoublyLinkedIntList");
+        }
+
+        // setup current index tracker
+        int currIndex = 0;
+
+        // setup pointer
+        Node pointer = firstSentinel.next;
+
+        // run through list, up to specified index
+        while (pointer != null && currIndex != index) {
+            // move onto next Node
+            pointer = pointer.next;
+
+            // update tracker
+            currIndex++;
+        }
+
+        // return data stored within Node at specified index
+        return pointer.data;
     }
 
     /**

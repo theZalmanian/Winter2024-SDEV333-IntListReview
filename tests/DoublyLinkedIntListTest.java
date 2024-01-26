@@ -29,11 +29,73 @@ class DoublyLinkedIntListTest {
     private final int TEST_VALUE = 20;
 
     @Test
-    void addFront() {
+    void addFront_listContainsNode_addedSuccessfully() {
+        // add initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // ensure expected value is at index 0
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
     }
 
     @Test
-    void addBack() {
+    void addFront_listContainsMultipleNodes_addedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+        testDoublyLinkedIntList.addBack(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // ensure expected value is at index 0
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
+    }
+
+    @Test
+    void addFront_listEmpty_addedSuccessfully() {
+        // make test value new head
+        testDoublyLinkedIntList.addFront(TEST_VALUE);
+
+        // ensure expected value is at index 0
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(FIRST_INDEX));
+    }
+
+    @Test
+    void addBack_listContainsNode_addedSuccessfully() {
+        // add initial value
+        testDoublyLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
+    }
+
+    @Test
+    void addBack_listContainsMultipleNodes_addedSuccessfully() {
+        // add several initial values
+        testDoublyLinkedIntList.addFront(FILLER_VALUE);
+        testDoublyLinkedIntList.addFront(FILLER_VALUE);
+        testDoublyLinkedIntList.addFront(FILLER_VALUE);
+
+        // add test value
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
+    }
+
+    @Test
+    void addBack_listEmpty_addedSuccessfully() {
+        // make test value new tail
+        testDoublyLinkedIntList.addBack(TEST_VALUE);
+
+        // ensure expected value is at end of list
+        assertEquals(TEST_VALUE, testDoublyLinkedIntList.get(testDoublyLinkedIntList.size() -1));
     }
 
     @Test
