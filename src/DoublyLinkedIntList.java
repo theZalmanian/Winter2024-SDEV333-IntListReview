@@ -1,25 +1,26 @@
 import java.util.Iterator;
 
 /**
- *
+ * Getting practice with implementing a LinkedList type class that can be traversed both ways
+ * @author Zalman I.
  */
 public class DoublyLinkedIntList implements IntList {
     /**
-     *
+     * A storage container which contains a connection to two adjacent Nodes
      */
     private static class Node {
         /**
-         * The number stored within the node
+         * The value stored within the Node
          */
         int data;
 
         /**
-         * The node this node is pointing to
+         * The Node this Node is pointing to
          */
         Node next;
 
         /**
-         * The node pointing at this node
+         * The Node pointing at this Node
          */
         Node previous;
 
@@ -33,33 +34,33 @@ public class DoublyLinkedIntList implements IntList {
     }
 
     /**
-     *
+     * The Node pointing to the starting Node, first sentinel
      */
-    private Node pre;
+    private Node first;
 
     /**
-     *
+     * The Node being pointed at by final Node, last sentinel
      */
-    private Node post;
+    private Node last;
 
     /**
-     *
+     * The number of Nodes contained within this DoublyLinkedIntList
      */
     private int size;
 
     /**
-     *
+     * Constructs an empty DoublyLinkedIntList, with both sentinels pointing at each other
      */
     public DoublyLinkedIntList() {
          // setup both sentinel Nodes
-        pre = new Node();
-        post = new Node();
+        first = new Node();
+        last = new Node();
 
         // point first sentinel to last sentinel
-        pre.next = post;
+        first.next = last;
 
         // point last sentinel to first sentinel
-        post.previous = pre;
+        last.previous = first;
 
         // there are no numbers contained within this DoublyLinkedIntList
         size = 0;
@@ -89,15 +90,15 @@ public class DoublyLinkedIntList implements IntList {
         newNode.data = value;
 
         // track the last Node in DoublyLinkedIntList
-        Node lastNode = post.previous;
+        Node lastNode = last.previous;
 
         // point new Node at last sentinel and last Node
-        newNode.next = post;
+        newNode.next = last;
         newNode.previous = lastNode;
 
         // point last sentinel and last Node at new Node
         lastNode.next = newNode;
-        post.previous = newNode;
+        last.previous = newNode;
 
         // account for new value being added
         size++;
@@ -136,13 +137,13 @@ public class DoublyLinkedIntList implements IntList {
         // if there are values within the DoublyLinkedIntList
         if(size > 0) {
             // track the last Node in the DoublyLinkedIntList
-            Node lastNode = post.previous;
+            Node lastNode = last.previous;
 
             // update the Node pointing to the last Node to point at post
-            lastNode.previous.next = post;
+            lastNode.previous.next = last;
 
             // update post to point at Node prior to last Node
-            post.previous = lastNode.previous;
+            last.previous = lastNode.previous;
 
             // account for value being removed
             size--;
