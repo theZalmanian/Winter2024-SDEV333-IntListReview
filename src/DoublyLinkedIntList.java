@@ -36,12 +36,12 @@ public class DoublyLinkedIntList implements IntList {
     /**
      * The Node pointing to the starting Node, first sentinel
      */
-    private Node first;
+    private Node firstSentinel;
 
     /**
      * The Node being pointed at by final Node, last sentinel
      */
-    private Node last;
+    private Node lastSentinel;
 
     /**
      * The number of Nodes contained within this DoublyLinkedIntList
@@ -53,14 +53,14 @@ public class DoublyLinkedIntList implements IntList {
      */
     public DoublyLinkedIntList() {
          // setup both sentinel Nodes
-        first = new Node();
-        last = new Node();
+        firstSentinel = new Node();
+        lastSentinel = new Node();
 
         // point first sentinel to last sentinel
-        first.next = last;
+        firstSentinel.next = lastSentinel;
 
         // point last sentinel to first sentinel
-        last.previous = first;
+        lastSentinel.previous = firstSentinel;
 
         // there are no numbers contained within this DoublyLinkedIntList
         size = 0;
@@ -75,7 +75,23 @@ public class DoublyLinkedIntList implements IntList {
      */
     @Override
     public void addFront(int value) {
+        // construct a new Node to hold given value
+        Node newNode = new Node();
+        newNode.data = value;
 
+        // track the first Node in DoublyLinkedIntList
+        Node firstNode = firstSentinel.next;
+
+        // point new Node at first Node, and first sentinel
+        newNode.next = firstNode;
+        newNode.previous = firstSentinel;
+
+        // point first sentinel and first Node at new Node
+        firstNode.previous = newNode;
+        firstSentinel.next = newNode;
+
+        // account for new value being added
+        size++;
     }
 
     /**
@@ -90,15 +106,15 @@ public class DoublyLinkedIntList implements IntList {
         newNode.data = value;
 
         // track the last Node in DoublyLinkedIntList
-        Node lastNode = last.previous;
+        Node lastNode = lastSentinel.previous;
 
         // point new Node at last sentinel and last Node
-        newNode.next = last;
+        newNode.next = lastSentinel;
         newNode.previous = lastNode;
 
         // point last sentinel and last Node at new Node
         lastNode.next = newNode;
-        last.previous = newNode;
+        lastSentinel.previous = newNode;
 
         // account for new value being added
         size++;
@@ -137,13 +153,13 @@ public class DoublyLinkedIntList implements IntList {
         // if there are values within the DoublyLinkedIntList
         if(size > 0) {
             // track the last Node in the DoublyLinkedIntList
-            Node lastNode = last.previous;
+            Node lastNode = lastSentinel.previous;
 
             // update the Node pointing to the last Node to point at post
-            lastNode.previous.next = last;
+            lastNode.previous.next = lastSentinel;
 
             // update post to point at Node prior to last Node
-            last.previous = lastNode.previous;
+            lastSentinel.previous = lastNode.previous;
 
             // account for value being removed
             size--;
@@ -217,12 +233,12 @@ public class DoublyLinkedIntList implements IntList {
     @Override
     public int indexOf(int value) {
         // if the list is not empty
-        if(first.next != null) {
+        if(firstSentinel.next != null) {
             // setup index tracker
             int index = 0;
 
             // setup pointer
-            Node pointer = first;
+            Node pointer = firstSentinel.next;
 
             // run through list
             while (pointer != null) {
@@ -271,12 +287,12 @@ public class DoublyLinkedIntList implements IntList {
     @Override
     public void clear() {
         // if the list is not already empty
-        if(first.next != null) {
+        if(firstSentinel.next != null) {
             // reset first sentinel node and point it at last sentinel
-            first.next = last;
+            firstSentinel.next = lastSentinel;
 
             // reset last sentinel node and point it at first sentinel
-            last.previous = first;
+            lastSentinel.previous = firstSentinel;
 
             // set the size to 0, as there are no longer any values being tracked
             size = 0;
